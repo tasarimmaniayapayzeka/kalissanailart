@@ -311,6 +311,7 @@ h1 em {
   border-radius: 999px;
   margin-bottom: 12px;
 }
+.etiket-kampanya { background: var(--bordo); color: var(--fildisi); }
 
 .stil-detay-metin h3 { font-size: 32px; margin-bottom: 10px; }
 .stil-detay-metin > p { color: var(--kahve); max-width: 52ch; margin-bottom: 18px; }

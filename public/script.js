@@ -23,6 +23,18 @@ const HIZMETLER = [
 
 const KART_KATSAYI = 1.2; // kredi kartında %20 fark
 
+// Stil seçilmeden önce detay panelinde gösterilen nakit kampanyası paketi
+const KAMPANYA = {
+  ad: 'Manikür + Protez + Kalıcı Oje',
+  foto: 'gorseller/kampanya.webp',
+  aciklama: 'Nakit kampanyasına özel pakette protez tırnak, manikür ve kalıcı oje bir arada. Üstelik tüm kalıcı oje işlemlerinde French, Cat Eye, Ombre veya İnci Tozu hediye.',
+  fiyatNakit: 1700,
+  fiyatKart: 2040
+};
+const KAMPANYA_WA_URL = 'https://wa.me/905331661532?text=' + encodeURIComponent(
+  'Merhaba Kalissa 👋\nNakit kampanyasındaki paket için randevu almak istiyorum: Manikür + Protez + Kalıcı Oje — 1.700 TL (nakit).\nRandevu için uygun saatlerinizi öğrenebilir miyim?'
+);
+
 const durum = {
   stil: 'cateye',
   stilSecildi: false, // kullanıcı gerçekten bir stile tıkladı mı
@@ -40,9 +52,9 @@ const stilIzgara = document.getElementById('stilIzgara');
 STILLER.forEach((stil) => {
   const kart = document.createElement('button');
   kart.type = 'button';
-  kart.className = 'stil-kart' + (stil.id === durum.stil ? ' secili' : '');
+  kart.className = 'stil-kart';
   kart.dataset.stil = stil.id;
-  kart.setAttribute('aria-pressed', String(stil.id === durum.stil));
+  kart.setAttribute('aria-pressed', 'false');
   kart.innerHTML = `<img class="stil-foto" src="${stil.foto}" alt="${stil.ad} nail art" loading="lazy"><span class="stil-kart-ad">${stil.ad}</span>`;
   kart.addEventListener('click', () => {
     durum.stil = stil.id;
@@ -60,13 +72,38 @@ STILLER.forEach((stil) => {
 
 function stilDetayGuncelle() {
   const stil = STILLER.find((s) => s.id === durum.stil);
+  const etiket = document.getElementById('detayEtiket');
+  etiket.textContent = 'ÖNERİLEN';
+  etiket.classList.remove('etiket-kampanya');
+  etiket.hidden = !stil.onerilen;
   document.getElementById('detayAd').textContent = stil.ad;
   document.getElementById('detayAciklama').textContent = stil.aciklama;
-  document.getElementById('detayEtiket').hidden = !stil.onerilen;
+  document.getElementById('detayFiyatNot').textContent = 'Başlangıç Fiyatı (Nakit)';
   document.getElementById('detayFiyat').textContent = tl(stil.baslangicFiyat);
+  document.getElementById('detayFiyatEk').textContent = '+ stil detayına göre 50–350 TL nail art farkı';
   const foto = document.getElementById('detayFoto');
   foto.src = stil.foto;
   foto.alt = stil.ad + ' nail art';
+  document.getElementById('detayCta').textContent = 'Bu Stile Randevu Al 🗓';
+}
+
+// Varsayılan panel: nakit kampanyası paketi
+function kampanyaPanelGoster() {
+  const etiket = document.getElementById('detayEtiket');
+  etiket.textContent = 'NAKİT KAMPANYASI';
+  etiket.classList.add('etiket-kampanya');
+  etiket.hidden = false;
+  document.getElementById('detayAd').textContent = KAMPANYA.ad;
+  document.getElementById('detayAciklama').textContent = KAMPANYA.aciklama;
+  document.getElementById('detayFiyatNot').textContent = 'Kampanya Fiyatı (Nakit)';
+  document.getElementById('detayFiyat').textContent = tl(KAMPANYA.fiyatNakit);
+  document.getElementById('detayFiyatEk').textContent = 'kredi kartıyla ' + tl(KAMPANYA.fiyatKart);
+  const foto = document.getElementById('detayFoto');
+  foto.src = KAMPANYA.foto;
+  foto.alt = KAMPANYA.ad + ' — nakit kampanyası';
+  const cta = document.getElementById('detayCta');
+  cta.textContent = 'Bu Pakete Randevu Al 🎁';
+  cta.href = KAMPANYA_WA_URL;
 }
 
 // ---------- Hizmet listesi ----------
@@ -188,6 +225,8 @@ function waMesajOlustur() {
 function waLinkleriGuncelle() {
   const url = `https://wa.me/${WA_NUMARA}?text=${encodeURIComponent(waMesajOlustur())}`;
   document.querySelectorAll('.wa-dinamik').forEach((a) => { a.href = url; });
+  // panel stil modundaysa paneldeki CTA da güncel mesajı taşır (kampanya modunda sabit kalır)
+  if (durum.stilSecildi) document.getElementById('detayCta').href = url;
 }
 
 // ---------- Galeri ----------
@@ -216,16 +255,6 @@ GALERI.forEach((g) => {
   galeriIzgara.appendChild(kart);
 });
 
-// "Bu Stile Randevu Al" panelde görünen stili taşır: tıklama anında stil seçilmiş sayılır
-document.querySelectorAll('.wa-stil').forEach((buton) => {
-  buton.addEventListener('pointerdown', () => {
-    if (!durum.stilSecildi) {
-      durum.stilSecildi = true;
-      waLinkleriGuncelle();
-    }
-  });
-});
-
 // ---------- Hero videosu: otomatik oynatma engellenirse ilk etkileşimde dene ----------
 const heroVideo = document.querySelector('.hero-foto-kart video');
 if (heroVideo) {
@@ -235,5 +264,5 @@ if (heroVideo) {
 }
 
 // ---------- Başlangıç ----------
-stilDetayGuncelle();
+kampanyaPanelGoster();
 ozetGuncelle();
