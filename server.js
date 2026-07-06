@@ -24,7 +24,13 @@ const MIME = {
 };
 
 const server = http.createServer((req, res) => {
-  let urlPath = decodeURIComponent(req.url.split('?')[0]);
+  let urlPath;
+  try {
+    urlPath = decodeURIComponent(req.url.split('?')[0]);
+  } catch (e) {
+    res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
+    return res.end('Gecersiz istek');
+  }
   if (urlPath === '/') urlPath = '/index.html';
 
   const filePath = path.join(PUBLIC_DIR, urlPath);
@@ -37,7 +43,11 @@ const server = http.createServer((req, res) => {
 
   fs.readFile(filePath, (err, data) => {
     if (err) {
-      // bilinmeyen yollar anasayfaya doner
+      // dosya istekleri (uzantili yollar) 404 doner; sayfa yollari anasayfaya doner
+      if (path.extname(filePath)) {
+        res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+        return res.end('Bulunamadi');
+      }
       fs.readFile(path.join(PUBLIC_DIR, 'index.html'), (err2, home) => {
         if (err2) {
           res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
