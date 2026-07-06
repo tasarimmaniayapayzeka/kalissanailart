@@ -606,8 +606,15 @@ h1 em {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
-  .hero-ic { grid-template-columns: 1fr; }
-  .hero-gorsel { order: -1; }
+  /* mobil sıra: başlık → metin → video → CTA butonları → güven rozetleri */
+  .hero-ic { grid-template-columns: 1fr; gap: 0; }
+  .hero-metin { display: contents; }
+  .onbaslik { order: 1; }
+  .hero-ic h1 { order: 2; }
+  .hero-alt { order: 3; }
+  .hero-gorsel { order: 4; margin: 4px 0 30px; }
+  .cta-grup { order: 5; }
+  .guven { order: 6; }
   .palet-kart { padding: 30px 26px 20px; }
   .hesap-izgara { grid-template-columns: 1fr; }
   .ozet { position: static; }
