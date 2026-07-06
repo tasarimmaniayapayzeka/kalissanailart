@@ -266,6 +266,62 @@ GALERI.forEach((g) => {
   galeriIzgara.appendChild(kart);
 });
 
+// ---------- Sayfa içi bağlantılar: her tarayıcıda güvenilir yumuşak kaydırma ----------
+document.querySelectorAll('a[href^="#"]').forEach((a) => {
+  a.addEventListener('click', (e) => {
+    const id = a.getAttribute('href').slice(1);
+    if (!id) return;
+    const hedef = document.getElementById(id);
+    if (!hedef) return;
+    e.preventDefault();
+    hedef.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    history.pushState(null, '', '#' + id);
+  });
+});
+
+// ---------- Hamburger menü ----------
+const menuDugme = document.getElementById('menuDugme');
+const mobilMenu = document.getElementById('mobilMenu');
+
+function mobilMenuKapat() {
+  mobilMenu.hidden = true;
+  menuDugme.classList.remove('acik');
+  menuDugme.setAttribute('aria-expanded', 'false');
+  menuDugme.setAttribute('aria-label', 'Menüyü aç');
+}
+
+menuDugme.addEventListener('click', () => {
+  if (mobilMenu.hidden) {
+    mobilMenu.hidden = false;
+    menuDugme.classList.add('acik');
+    menuDugme.setAttribute('aria-expanded', 'true');
+    menuDugme.setAttribute('aria-label', 'Menüyü kapat');
+  } else {
+    mobilMenuKapat();
+  }
+});
+
+// bağlantıya dokununca menü kapanır, sayfa yumuşakça bölüme kayar
+mobilMenu.querySelectorAll('a').forEach((a) => a.addEventListener('click', mobilMenuKapat));
+
+// ---------- Scrollspy: masaüstü menüde aktif bölüm vurgusu ----------
+const spyLinkleri = [...document.querySelectorAll('.ustmenu a')];
+const spyBolumleri = spyLinkleri
+  .map((a) => document.getElementById(a.getAttribute('href').slice(1)))
+  .filter(Boolean);
+
+function scrollSpyGuncelle() {
+  const esik = window.innerHeight * 0.4;
+  let aktifId = null;
+  spyBolumleri.forEach((bolum) => {
+    if (bolum.getBoundingClientRect().top <= esik) aktifId = bolum.id;
+  });
+  spyLinkleri.forEach((a) => a.classList.toggle('aktif', a.getAttribute('href') === '#' + aktifId));
+}
+
+window.addEventListener('scroll', scrollSpyGuncelle, { passive: true });
+scrollSpyGuncelle();
+
 // ---------- Hero videosu: otomatik oynatma engellenirse ilk etkileşimde dene ----------
 const heroVideo = document.querySelector('.hero-foto-kart video');
 if (heroVideo) {
