@@ -108,8 +108,74 @@ img { max-width: 100%; }
   font-weight: 600;
   font-size: 14.5px;
   letter-spacing: .03em;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+  transition: color .15s ease, border-color .15s ease;
 }
 .ustmenu a:hover { color: var(--bordo); }
+.ustmenu a.aktif { color: var(--bordo); border-bottom-color: var(--bordo); }
+
+/* bölüm başlıkları yapışkan barın altında kalmasın */
+section[id] { scroll-margin-top: 84px; }
+
+/* ---------- Hamburger + mobil menü ---------- */
+.menu-dugme {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.menu-dugme span {
+  width: 22px;
+  height: 2px;
+  background: var(--espresso);
+  border-radius: 2px;
+  transition: transform .25s ease, opacity .2s ease;
+}
+.menu-dugme.acik span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.menu-dugme.acik span:nth-child(2) { opacity: 0; }
+.menu-dugme.acik span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobil-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 24px 20px;
+  background: rgba(248, 242, 236, 0.98);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--cizgi);
+  box-shadow: 0 18px 30px rgba(87, 28, 40, 0.12);
+  animation: menuAc .22s ease;
+}
+@keyframes menuAc {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.mobil-menu a {
+  text-decoration: none;
+  color: var(--espresso);
+  font-weight: 700;
+  font-size: 15.5px;
+  padding: 14px 2px;
+  border-bottom: 1px dashed var(--cizgi);
+}
+.mobil-menu a:active { color: var(--bordo); }
+.mobil-menu .mobil-menu-cta {
+  color: var(--fildisi);
+  border-bottom: none;
+  margin-top: 14px;
+  padding: 15px 28px;
+}
 
 /* ---------- Hero ---------- */
 .hero {
@@ -650,15 +716,17 @@ h1 em {
   .stil-detay-metin > p { margin-inline: auto; }
   .stil-detay-gorsel { max-width: 340px; margin-inline: auto; }
   .ustmenu { display: none; }
+  .menu-dugme { display: flex; }
 }
 
 @media (max-width: 760px) {
   .yapiskan-bar { display: block; }
   .altbilgi { padding-bottom: calc(100px + env(safe-area-inset-bottom)); }
   .ustbar .btn { display: none; }
-  /* mobilde logo ortada ve biraz daha büyük */
+  /* mobilde logo ortada ve biraz daha büyük; hamburger sağda sabit */
   .ustbar { justify-content: center; }
   .logo-img { height: 58px; }
+  .menu-dugme { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); }
   /* footer: mobilde alt alta, ikonlu satırlar */
   .altbilgi-liste { flex-direction: column; align-items: center; gap: 16px; }
   /* hero metinleri ortalı */
