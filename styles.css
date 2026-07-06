@@ -169,7 +169,8 @@ h1 em {
   max-width: 420px;
   width: 100%;
 }
-.hero-foto-kart img {
+.hero-foto-kart img,
+.hero-foto-kart video {
   display: block;
   width: 100%;
   aspect-ratio: 4 / 5;
