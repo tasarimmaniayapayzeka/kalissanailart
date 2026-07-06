@@ -9,6 +9,32 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@400;500;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NailSalon",
+    "name": "Kalissa Beauty & Wellness",
+    "description": "Kadıköy Fenerbahçe'de profesyonel nail art stüdyosu: Cat Eye, French, Ombre, protez tırnak ve daha fazlası.",
+    "telephone": "+905415432598",
+    "email": "info@kalissabeauty.com",
+    "url": "https://kalissabeauty.com",
+    "image": "https://kalissabeauty.com/gorseller/imza.webp",
+    "priceRange": "₺₺",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Fenerbahçe Mah. Fener Kalamış Cd. No:21 Ünver Apt. Daire:1",
+      "addressLocality": "Kadıköy",
+      "addressRegion": "İstanbul",
+      "addressCountry": "TR"
+    },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "21:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "20:00" }
+    ],
+    "sameAs": ["https://www.instagram.com/kalissabeautywellness/"]
+  }
+  </script>
 </head>
 <body>
 
@@ -35,7 +61,7 @@
         <h1>Tırnaklarınız <em>konuşsun</em>, siz gülümseyin.</h1>
         <p class="hero-alt">Tarzınıza göre tasarlanan profesyonel nail art. Steril, özenli ve tam zamanında — çünkü elleriniz her gün sahnede.</p>
         <div class="cta-grup">
-          <a class="btn btn-dolu" href="#stiller">Tarzını Seç <span class="ok">→</span></a>
+          <a class="btn btn-dolu" href="#stiller">Tarzınızı Seçin <span class="ok">→</span></a>
           <a class="btn btn-cerceve wa-dinamik" href="#" target="_blank" rel="noopener">
             <svg class="wa-ikon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.4 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.1s.9 2.4 1.1 2.6c.1.2 1.8 2.7 4.3 3.8 1.6.7 2.2.8 3 .6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0-.2-.2-.2-.5-.3Z"/></svg>
             WhatsApp'tan Randevu Al
@@ -59,8 +85,8 @@
 
   <!-- STİL SEÇİCİ -->
   <section class="bolum" id="stiller">
-    <h2 class="bolum-baslik"><span>✦</span> Tarzını Seç <span>✦</span></h2>
-    <p class="bolum-alt">Bir stile dokun, detayını gör — beğendiysen tek tıkla randevuya geç.</p>
+    <h2 class="bolum-baslik"><span>✦</span> Tarzınızı Seçin <span>✦</span></h2>
+    <p class="bolum-alt">Bir stile dokunun, detayını görün — beğendiyseniz tek tıkla randevuya geçin.</p>
 
     <div class="stil-izgara" id="stilIzgara"></div>
 
@@ -72,16 +98,16 @@
         <span class="etiket" id="detayEtiket">ÖNERİLEN</span>
         <h3 id="detayAd">Cat Eye</h3>
         <p id="detayAciklama"></p>
-        <p class="detay-fiyat"><span class="detay-fiyat-not">Başlangıç Fiyatı</span><strong id="detayFiyat">1200 TL</strong><span class="detay-fiyat-ek">+ stil detayına göre 50–350 TL nail art farkı</span></p>
-        <a class="btn btn-dolu wa-dinamik" href="#" target="_blank" rel="noopener">Bu Stile Randevu Al 🗓</a>
+        <p class="detay-fiyat"><span class="detay-fiyat-not">Başlangıç Fiyatı (Nakit)</span><strong id="detayFiyat">1.200 TL</strong><span class="detay-fiyat-ek">+ stil detayına göre 50–350 TL nail art farkı</span></p>
+        <a class="btn btn-dolu wa-dinamik wa-stil" href="#" target="_blank" rel="noopener">Bu Stile Randevu Al 🗓</a>
       </div>
     </div>
   </section>
 
   <!-- FİYAT HESAPLAYICI -->
   <section class="bolum bolum-koyu-zemin" id="fiyat">
-    <h2 class="bolum-baslik"><span>✦</span> Fiyatını Hesapla <span>✦</span></h2>
-    <p class="bolum-alt">Hizmetleri seç, toplamı anında gör — randevu mesajın hazır gelsin.</p>
+    <h2 class="bolum-baslik"><span>✦</span> Fiyatınızı Hesaplayın <span>✦</span></h2>
+    <p class="bolum-alt">Hizmetleri seçin, toplamı anında görün — randevu mesajınız hazır gelsin.</p>
 
     <div class="hesap-izgara">
       <div class="hizmet-liste" id="hizmetListe"></div>
@@ -102,11 +128,11 @@
         </div>
 
         <div class="odeme-secim" role="radiogroup" aria-label="Ödeme şekli">
-          <button type="button" class="odeme-pill secili" data-odeme="nakit">Nakit</button>
-          <button type="button" class="odeme-pill" data-odeme="kart">Kredi Kartı</button>
+          <button type="button" class="odeme-pill secili" role="radio" aria-checked="true" data-odeme="nakit">Nakit</button>
+          <button type="button" class="odeme-pill" role="radio" aria-checked="false" data-odeme="kart">Kredi Kartı</button>
         </div>
 
-        <div class="toplam-satir">
+        <div class="toplam-satir" aria-live="polite">
           <span>Toplam</span>
           <strong id="toplamDeger">0 TL</strong>
         </div>
@@ -124,16 +150,19 @@
         <p class="kampanya-vurgu">Nakit ödemede <strong>%17'ye varan avantaj</strong></p>
         <details class="kampanya-detay">
           <summary>Nakit fiyat listesini gör</summary>
-          <table>
-            <thead><tr><th>İşlem</th><th>Kredi Kartı</th><th>Nakit</th></tr></thead>
-            <tbody>
-              <tr><td>Manikür + Protez + Kalıcı Oje</td><td>2040 TL</td><td><strong>1700 TL</strong></td></tr>
-              <tr><td>Manikür + Kalıcı Oje Jel + Protez Bakım</td><td>1800 TL</td><td><strong>1500 TL</strong></td></tr>
-              <tr><td>Manikür + Jel Güçlendirme + Kalıcı Oje El</td><td>1680 TL</td><td><strong>1400 TL</strong></td></tr>
-              <tr><td>Manikür + Kalıcı Oje El</td><td>1440 TL</td><td><strong>1200 TL</strong></td></tr>
-              <tr><td>Pedikür + Kalıcı Oje El</td><td>1560 TL</td><td><strong>1300 TL</strong></td></tr>
-            </tbody>
-          </table>
+          <div class="tablo-kaydir">
+            <table>
+              <thead><tr><th>İşlem</th><th>Kredi Kartı</th><th>Nakit</th></tr></thead>
+              <tbody>
+                <tr><td>Manikür + Protez + Kalıcı Oje</td><td>2.040 TL</td><td><strong>1.700 TL</strong></td></tr>
+                <tr><td>Manikür + Kalıcı Oje Jel + Protez Bakım</td><td>1.800 TL</td><td><strong>1.500 TL</strong></td></tr>
+                <tr><td>Manikür + Jel Güçlendirme + Kalıcı Oje El</td><td>1.680 TL</td><td><strong>1.400 TL</strong></td></tr>
+                <tr><td>Manikür + Kalıcı Oje El</td><td>1.440 TL</td><td><strong>1.200 TL</strong></td></tr>
+                <tr><td>Pedikür + Kalıcı Oje El</td><td>1.560 TL</td><td><strong>1.300 TL</strong></td></tr>
+                <tr><td>Batık Tırnak (Tek Tırnak)</td><td>600 TL</td><td><strong>500 TL</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
         </details>
       </div>
       <div class="hediye-kart">

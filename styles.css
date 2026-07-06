@@ -16,6 +16,9 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* hidden özniteliği yazar CSS'indeki display kurallarına yenilmesin */
+[hidden] { display: none !important; }
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -427,8 +430,10 @@ h1 em {
   font-weight: 700;
   font-size: 14px;
   color: var(--bordo);
-  margin-bottom: 10px;
+  padding: 12px 0;
 }
+
+.tablo-kaydir { overflow-x: auto; }
 .kampanya-detay table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 8px; }
 .kampanya-detay th, .kampanya-detay td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--cizgi); }
 .kampanya-detay th { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--kahve); }
@@ -573,7 +578,7 @@ h1 em {
 .altbilgi {
   background: var(--espresso);
   color: var(--fildisi);
-  padding: 40px clamp(20px, 5vw, 64px) 90px;
+  padding: 40px clamp(20px, 5vw, 64px) 48px;
   text-align: center;
 }
 .altbilgi-ic {
@@ -617,11 +622,14 @@ h1 em {
   .hijyen-izgara { grid-template-columns: 1fr; gap: 20px; }
   .stil-detay { grid-template-columns: 1fr; text-align: center; }
   .stil-detay-metin .detay-fiyat { justify-content: center; }
+  .stil-detay-metin > p { margin-inline: auto; }
+  .stil-detay-gorsel { max-width: 340px; margin-inline: auto; }
   .ustmenu { display: none; }
 }
 
 @media (max-width: 760px) {
   .yapiskan-bar { display: block; }
+  .altbilgi { padding-bottom: calc(100px + env(safe-area-inset-bottom)); }
   .ustbar .btn { display: none; }
   .cta-grup .btn { width: 100%; }
   .guven { gap: 8px 18px; }
