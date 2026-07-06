@@ -1,0 +1,11 @@
+{
+  "name": "kalissanailart",
+  "version": "0.1.0",
+  "description": "Kalissa Nail Art web sitesi",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}
