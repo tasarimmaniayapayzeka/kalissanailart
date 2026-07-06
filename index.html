@@ -304,6 +304,26 @@
     </a>
   </div>
 
+  <!-- SOHBET ASİSTANI -->
+  <div class="sohbet">
+    <span class="sohbet-ipucu" id="sohbetIpucu" hidden>Sorunuz mu var? ✦</span>
+    <button class="sohbet-dugme" id="sohbetDugme" type="button" aria-expanded="false" aria-controls="sohbetPanel" aria-label="Sohbet asistanını aç">
+      <span id="sohbetDugmeIkon">💅</span>
+    </button>
+    <div class="sohbet-panel" id="sohbetPanel" hidden>
+      <div class="sohbet-baslik">
+        <span class="sohbet-avatar">✦</span>
+        <div class="sohbet-baslik-metin">
+          <strong>Kalissa Asistan</strong>
+          <small>genelde anında yanıtlar</small>
+        </div>
+        <button class="sohbet-kapat" id="sohbetKapat" type="button" aria-label="Sohbeti kapat">✕</button>
+      </div>
+      <div class="sohbet-mesajlar" id="sohbetMesajlar" role="log" aria-live="polite"></div>
+      <div class="sohbet-secenekler" id="sohbetSecenekler"></div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
