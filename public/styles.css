@@ -693,6 +693,171 @@ h1 em {
   display: none;
 }
 
+/* ---------- Kalissa Asistan (sohbet) ---------- */
+.sohbet {
+  position: fixed;
+  right: 18px;
+  bottom: 22px;
+  z-index: 70;
+}
+
+.sohbet-dugme {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, var(--bordo), var(--bordo-koyu));
+  color: var(--fildisi);
+  font-size: 25px;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(87, 28, 40, 0.35);
+  transition: transform .15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sohbet-dugme:hover { transform: scale(1.07); }
+
+.sohbet-ipucu {
+  position: absolute;
+  right: 68px;
+  bottom: 14px;
+  background: var(--fildisi);
+  border: 1px solid var(--cizgi);
+  color: var(--bordo);
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+  box-shadow: var(--golge);
+  animation: menuAc .3s ease;
+}
+
+.sohbet-panel {
+  position: absolute;
+  right: 0;
+  bottom: 72px;
+  width: min(340px, calc(100vw - 36px));
+  max-height: min(480px, calc(100vh - 170px));
+  display: flex;
+  flex-direction: column;
+  background: var(--krem);
+  border: 1px solid var(--cizgi);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(87, 28, 40, 0.28);
+  animation: menuAc .22s ease;
+}
+
+.sohbet-baslik {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, var(--bordo), var(--bordo-koyu));
+  color: var(--fildisi);
+}
+.sohbet-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--fildisi);
+  color: var(--bordo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex: none;
+}
+.sohbet-baslik-metin { display: flex; flex-direction: column; line-height: 1.25; flex: 1; }
+.sohbet-baslik-metin strong { font-family: 'Playfair Display', serif; font-size: 16px; letter-spacing: .02em; }
+.sohbet-baslik-metin small { font-size: 11px; opacity: .75; }
+.sohbet-kapat {
+  background: none;
+  border: none;
+  color: var(--fildisi);
+  font-size: 16px;
+  cursor: pointer;
+  opacity: .8;
+  padding: 4px 6px;
+}
+.sohbet-kapat:hover { opacity: 1; }
+
+.sohbet-mesajlar {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 120px;
+}
+
+.mesaj-bot, .mesaj-kullanici {
+  padding: 10px 14px;
+  font-size: 14px;
+  line-height: 1.55;
+  max-width: 88%;
+  white-space: pre-line;
+}
+.mesaj-bot {
+  align-self: flex-start;
+  background: var(--fildisi);
+  border: 1px solid var(--cizgi);
+  border-radius: 14px 14px 14px 4px;
+}
+.mesaj-kullanici {
+  align-self: flex-end;
+  background: var(--bordo);
+  color: var(--fildisi);
+  border-radius: 14px 14px 4px 14px;
+  font-weight: 600;
+}
+
+.mesaj-eylemler { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+.eylem-link {
+  color: var(--bordo);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 13.5px;
+}
+.eylem-link:hover { text-decoration: underline; }
+
+.yaziyor { display: flex; gap: 4px; align-items: center; }
+.yaziyor i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--kahve);
+  animation: nokta 1s infinite;
+}
+.yaziyor i:nth-child(2) { animation-delay: .18s; }
+.yaziyor i:nth-child(3) { animation-delay: .36s; }
+@keyframes nokta { 0%, 60%, 100% { opacity: .25; } 30% { opacity: 1; } }
+
+.sohbet-secenekler {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 14px 14px;
+  border-top: 1px solid var(--cizgi);
+  background: var(--krem);
+}
+.secenek-cip {
+  border: 1.5px solid var(--bordo);
+  background: transparent;
+  color: var(--bordo);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 13px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background .15s ease, color .15s ease;
+}
+.secenek-cip:hover { background: var(--bordo); color: var(--fildisi); }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
   /* mobil sıra: başlık → metin → video → CTA butonları → güven rozetleri */
@@ -722,6 +887,8 @@ h1 em {
 @media (max-width: 760px) {
   .yapiskan-bar { display: block; }
   .altbilgi { padding-bottom: calc(100px + env(safe-area-inset-bottom)); }
+  /* asistan, yapışkan WhatsApp barının üstünde dursun */
+  .sohbet { bottom: calc(86px + env(safe-area-inset-bottom)); right: 14px; }
   .ustbar .btn { display: none; }
   /* mobilde logo ortada ve biraz daha büyük; hamburger sağda sabit */
   .ustbar { justify-content: center; }

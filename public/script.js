@@ -330,6 +330,161 @@ if (heroVideo) {
   document.addEventListener('pointerdown', () => { if (heroVideo.paused) oynat(); }, { once: true });
 }
 
+// ---------- Kalissa Asistan (sohbet) ----------
+const sohbetDugme = document.getElementById('sohbetDugme');
+const sohbetDugmeIkon = document.getElementById('sohbetDugmeIkon');
+const sohbetPanel = document.getElementById('sohbetPanel');
+const sohbetKapatDugme = document.getElementById('sohbetKapat');
+const sohbetMesajlar = document.getElementById('sohbetMesajlar');
+const sohbetSecenekler = document.getElementById('sohbetSecenekler');
+const sohbetIpucu = document.getElementById('sohbetIpucu');
+
+const waGuncelUrl = () => `https://wa.me/${WA_NUMARA}?text=${encodeURIComponent(waMesajOlustur())}`;
+
+const SOHBET_KONULARI = {
+  fiyat: {
+    cip: '💅 Fiyatlar',
+    cevap: 'Nakit fiyatlarımızdan birkaçı:\nManikür + Kalıcı Oje 1.200 TL\nPedikür + Kalıcı Oje 1.300 TL\nProtez paketi 1.700 TL\nNail art 50–350 TL\n\nToplamınızı sayfadaki hesaplayıcıyla 10 saniyede görebilirsiniz 👇',
+    eylemler: [
+      { metin: 'Hesaplayıcıya Git →', tur: 'kaydir', hedef: 'fiyat' },
+      { metin: "WhatsApp'tan Sorun →", tur: 'wa' }
+    ]
+  },
+  kampanya: {
+    cip: '🎁 Kampanya',
+    cevap: 'Nakit ödemelerde %17\'ye varan avantaj var ✦\nÜstelik tüm kalıcı oje işlemlerinde French, Cat Eye, Ombre veya İnci Tozu hediye — seçim sizin!',
+    eylemler: [
+      { metin: 'Kampanyayı Gör →', tur: 'kaydir', hedef: 'kampanya' },
+      { metin: 'Randevu Al →', tur: 'wa' }
+    ]
+  },
+  saat: {
+    cip: '🕐 Saatler',
+    cevap: 'Çalışma saatlerimiz:\nPzt – Cum 09:00 – 21:00\nCumartesi 09:00 – 20:00\nPazar kapalıyız 💤',
+    eylemler: [
+      { metin: 'Randevu Al →', tur: 'wa' }
+    ]
+  },
+  adres: {
+    cip: '📍 Adres',
+    cevap: 'Fenerbahçe Mah. Fener Kalamış Cd. No:21\nÜnver Apt. Daire:1, Kadıköy / İstanbul',
+    eylemler: [
+      { metin: 'Yol Tarifi Al →', tur: 'link', href: 'https://www.google.com/maps/search/?api=1&query=Fenerbah%C3%A7e%20Mah.%20Fener%20Kalam%C4%B1%C5%9F%20Cd.%20No%3A21%20Kad%C4%B1k%C3%B6y' },
+      { metin: 'Hemen Arayın →', tur: 'link', href: 'tel:+905415432598' }
+    ]
+  },
+  randevu: {
+    cip: '📅 Randevu',
+    cevap: 'En hızlısı WhatsApp 💬 Sayfada stil veya hizmet seçtiyseniz mesajınız hazır bile geliyor!',
+    eylemler: [
+      { metin: "WhatsApp'ı Aç →", tur: 'wa' },
+      { metin: 'Telefonla Arayın →', tur: 'link', href: 'tel:+905415432598' }
+    ]
+  }
+};
+
+function sohbetKaydir() { sohbetMesajlar.scrollTop = sohbetMesajlar.scrollHeight; }
+
+function botMesajEkle(metin, eylemler) {
+  const balon = document.createElement('div');
+  balon.className = 'mesaj-bot';
+  balon.textContent = metin;
+  if (eylemler && eylemler.length) {
+    const kutu = document.createElement('div');
+    kutu.className = 'mesaj-eylemler';
+    eylemler.forEach((e) => {
+      const a = document.createElement('a');
+      a.className = 'eylem-link';
+      a.textContent = e.metin;
+      if (e.tur === 'kaydir') {
+        a.href = '#' + e.hedef;
+        a.addEventListener('click', (ev) => {
+          ev.preventDefault();
+          sohbetKapat();
+          document.getElementById(e.hedef).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      } else if (e.tur === 'wa') {
+        a.href = waGuncelUrl();
+        a.target = '_blank';
+        a.rel = 'noopener';
+      } else {
+        a.href = e.href;
+        if (e.href.startsWith('http')) { a.target = '_blank'; a.rel = 'noopener'; }
+      }
+      kutu.appendChild(a);
+    });
+    balon.appendChild(kutu);
+  }
+  sohbetMesajlar.appendChild(balon);
+  sohbetKaydir();
+}
+
+function yaziyorGoster(sureMs) {
+  const balon = document.createElement('div');
+  balon.className = 'mesaj-bot yaziyor';
+  balon.innerHTML = '<i></i><i></i><i></i>';
+  sohbetMesajlar.appendChild(balon);
+  sohbetKaydir();
+  return new Promise((coz) => setTimeout(() => { balon.remove(); coz(); }, sureMs));
+}
+
+function cipleriGoster() {
+  sohbetSecenekler.innerHTML = '';
+  Object.keys(SOHBET_KONULARI).forEach((anahtar) => {
+    const konu = SOHBET_KONULARI[anahtar];
+    const cip = document.createElement('button');
+    cip.type = 'button';
+    cip.className = 'secenek-cip';
+    cip.textContent = konu.cip;
+    cip.addEventListener('click', async () => {
+      const kullanici = document.createElement('div');
+      kullanici.className = 'mesaj-kullanici';
+      kullanici.textContent = konu.cip;
+      sohbetMesajlar.appendChild(kullanici);
+      sohbetKaydir();
+      sohbetSecenekler.innerHTML = '';
+      await yaziyorGoster(650);
+      botMesajEkle(konu.cevap, konu.eylemler);
+      cipleriGoster();
+    });
+    sohbetSecenekler.appendChild(cip);
+  });
+}
+
+let sohbetBaslatildi = false;
+
+async function sohbetAc() {
+  sohbetPanel.hidden = false;
+  sohbetDugme.setAttribute('aria-expanded', 'true');
+  sohbetDugme.setAttribute('aria-label', 'Sohbet asistanını kapat');
+  sohbetDugmeIkon.textContent = '✕';
+  sohbetIpucu.hidden = true;
+  if (!sohbetBaslatildi) {
+    sohbetBaslatildi = true;
+    await yaziyorGoster(550);
+    botMesajEkle('Merhaba! 👋 Kalissa\'ya hoş geldiniz.\nSize nasıl yardımcı olabilirim? ✦');
+    cipleriGoster();
+  }
+}
+
+function sohbetKapat() {
+  sohbetPanel.hidden = true;
+  sohbetDugme.setAttribute('aria-expanded', 'false');
+  sohbetDugme.setAttribute('aria-label', 'Sohbet asistanını aç');
+  sohbetDugmeIkon.textContent = '💅';
+}
+
+sohbetDugme.addEventListener('click', () => { sohbetPanel.hidden ? sohbetAc() : sohbetKapat(); });
+sohbetKapatDugme.addEventListener('click', sohbetKapat);
+
+// nazik ipucu: 4 sn sonra görün, 9 sn sonra veya açılınca kaybol
+setTimeout(() => {
+  if (sohbetPanel.hidden) {
+    sohbetIpucu.hidden = false;
+    setTimeout(() => { sohbetIpucu.hidden = true; }, 9000);
+  }
+}, 4000);
+
 // ---------- Başlangıç ----------
 kampanyaPanelGoster();
 ozetGuncelle();
