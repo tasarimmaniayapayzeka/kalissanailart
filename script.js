@@ -12,14 +12,25 @@ const STILLER = [
   { id: 'protez', ad: 'Protez Tırnak', foto: 'gorseller/protez.webp', baslangicFiyat: 1700, aciklama: 'İdeal boy ve formda, doğal görünümlü ve dayanıklı tırnaklar. Kırık ve kısa tırnaklara profesyonel çözüm.' }
 ];
 
+// fiyat: nakit fiyatı; fiyatKart: posterdeki özel kart fiyatı (yoksa nakit × 1.2)
 const HIZMETLER = [
   { id: 'man-oje',    ad: 'Manikür + Kalıcı Oje El', fiyat: 1200 },
   { id: 'ped-oje',    ad: 'Pedikür + Kalıcı Oje El', fiyat: 1300 },
   { id: 'jel',        ad: 'Manikür + Jel Güçlendirme + Kalıcı Oje El', fiyat: 1400 },
   { id: 'jel-protez', ad: 'Manikür + Kalıcı Oje Jel + Protez Bakım', fiyat: 1500 },
   { id: 'protez',     ad: 'Manikür + Protez + Kalıcı Oje', fiyat: 1700 },
+  { id: 'man-kadin',  ad: 'Manikür (Kadın)', fiyat: 800 },
+  { id: 'man-erkek',  ad: 'Manikür (Erkek)', fiyat: 1150, fiyatKart: 1400 },
+  { id: 'ped-kadin',  ad: 'Pedikür (Kadın)', fiyat: 900 },
+  { id: 'ped-erkek',  ad: 'Pedikür (Erkek)', fiyat: 1250 },
   { id: 'batik',      ad: 'Batık Tırnak (Tek Tırnak)', fiyat: 500 }
 ];
+
+// hizmetin seçili ödeme şekline göre fiyatı
+function hizmetFiyat(h) {
+  if (durum.odeme !== 'kart') return h.fiyat;
+  return h.fiyatKart || Math.round(h.fiyat * KART_KATSAYI);
+}
 
 const KART_KATSAYI = 1.2; // kredi kartında %20 fark
 
@@ -126,9 +137,8 @@ HIZMETLER.forEach((h) => {
 
 // ödeme şekli değişince soldaki fiyat etiketleri de aynı fiyatı göstersin
 function fiyatEtiketleriGuncelle() {
-  const carpan = durum.odeme === 'kart' ? KART_KATSAYI : 1;
   HIZMETLER.forEach((h) => {
-    fiyatEtiketleri.get(h.id).textContent = tl(Math.round(h.fiyat * carpan));
+    fiyatEtiketleri.get(h.id).textContent = tl(hizmetFiyat(h));
   });
 }
 
@@ -169,10 +179,11 @@ document.querySelectorAll('.odeme-pill').forEach((pill) => {
 function toplamHesapla() {
   let toplam = 0;
   durum.secilenHizmetler.forEach((id) => {
-    toplam += HIZMETLER.find((h) => h.id === id).fiyat;
+    toplam += hizmetFiyat(HIZMETLER.find((h) => h.id === id));
   });
-  if (durum.nailArt) toplam += durum.nailArtTutar;
-  if (durum.odeme === 'kart') toplam = Math.round(toplam * KART_KATSAYI);
+  if (durum.nailArt) {
+    toplam += durum.odeme === 'kart' ? Math.round(durum.nailArtTutar * KART_KATSAYI) : durum.nailArtTutar;
+  }
   return toplam;
 }
 
@@ -188,7 +199,7 @@ function ozetGuncelle() {
     durum.secilenHizmetler.forEach((id) => {
       const h = HIZMETLER.find((x) => x.id === id);
       const li = document.createElement('li');
-      li.innerHTML = `<span>${h.ad}</span><strong>${tl(Math.round(h.fiyat * carpan))}</strong>`;
+      li.innerHTML = `<span>${h.ad}</span><strong>${tl(hizmetFiyat(h))}</strong>`;
       liste.appendChild(li);
     });
     if (durum.nailArt) {
