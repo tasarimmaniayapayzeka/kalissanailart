@@ -168,6 +168,8 @@ function waLinkleriGuncelle() {
 
 // ---------- Galeri ----------
 const GALERI = [
+  { stil: 'imza',   ad: 'İmza: Cat Eye & Gold' },
+  { stil: 'hero',   ad: 'Altın Dokunuş' },
   { stil: 'french', ad: 'French İncelik' },
   { stil: 'cateye', ad: 'Bordo Cat Eye' },
   { stil: 'ombre',  ad: 'Pudra Ombre' },
@@ -189,6 +191,14 @@ GALERI.forEach((g) => {
     <span class="galeri-etiket"><span>${g.ad}</span><small>Instagram ↗</small></span>`;
   galeriIzgara.appendChild(kart);
 });
+
+// ---------- Hero videosu: otomatik oynatma engellenirse ilk etkileşimde dene ----------
+const heroVideo = document.querySelector('.hero-foto-kart video');
+if (heroVideo) {
+  const oynat = () => { heroVideo.play().catch(() => {}); };
+  oynat();
+  document.addEventListener('pointerdown', () => { if (heroVideo.paused) oynat(); }, { once: true });
+}
 
 // ---------- Başlangıç ----------
 stilDetayGuncelle();
