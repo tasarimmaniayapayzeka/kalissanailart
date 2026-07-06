@@ -3,13 +3,13 @@
 const WA_NUMARA = '905331661532';
 
 const STILLER = [
-  { id: 'french', ad: 'French',        aciklama: 'Zamansız zarafet: her kıyafete, her ortama uyan klasik beyaz uçlar. "Bakımlı ama abartısız" diyenlerin vazgeçilmezi.' },
-  { id: 'cateye', ad: 'Cat Eye',       aciklama: 'Işıltılı ve manyetik geçişlerle göz alıcı bir derinlik. Modern, şık ve iddialı görünmek isteyenler için.', onerilen: true },
-  { id: 'ombre',  ad: 'Ombre',         aciklama: 'Yumuşak renk geçişleriyle doğal ama sofistike bir görünüm. Uzayan tırnakta bile zarif kalır.' },
-  { id: 'inci',   ad: 'İnci Tozu',     aciklama: 'Sedefli parıltı: ışık vurdukça hafifçe renk değiştiren, zarif ve ışıltılı bir dokunuş.' },
-  { id: 'gold',   ad: 'Gold Detay',    aciklama: 'Altın varak ve ince çizgilerle lüks vurgusu. Davetlerin ve özel günlerin favorisi.' },
-  { id: 'nude',   ad: 'Soft Nude',     aciklama: 'Az, ama öz. Bakımlı ve doğal görünümün sırrı — ofisten akşam yemeğine her yere uyar.' },
-  { id: 'protez', ad: 'Protez Tırnak', aciklama: 'İdeal boy ve formda, doğal görünümlü ve dayanıklı tırnaklar. Kırık ve kısa tırnaklara profesyonel çözüm.' }
+  { id: 'french', ad: 'French',        foto: 'gorseller/french.webp', aciklama: 'Zamansız zarafet: her kıyafete, her ortama uyan klasik beyaz uçlar. "Bakımlı ama abartısız" diyenlerin vazgeçilmezi.' },
+  { id: 'cateye', ad: 'Cat Eye',       foto: 'gorseller/cateye.webp', aciklama: 'Işıltılı ve manyetik geçişlerle göz alıcı bir derinlik. Modern, şık ve iddialı görünmek isteyenler için.', onerilen: true },
+  { id: 'ombre',  ad: 'Ombre',         foto: 'gorseller/ombre.webp',  aciklama: 'Yumuşak renk geçişleriyle doğal ama sofistike bir görünüm. Uzayan tırnakta bile zarif kalır.' },
+  { id: 'inci',   ad: 'İnci Tozu',     foto: 'gorseller/inci.webp',   aciklama: 'Sedefli parıltı: ışık vurdukça hafifçe renk değiştiren, zarif ve ışıltılı bir dokunuş.' },
+  { id: 'gold',   ad: 'Gold Detay',    foto: 'gorseller/gold.webp',   aciklama: 'Altın varak ve ince çizgilerle lüks vurgusu. Davetlerin ve özel günlerin favorisi.' },
+  { id: 'nude',   ad: 'Soft Nude',     foto: 'gorseller/nude.webp',   aciklama: 'Az, ama öz. Bakımlı ve doğal görünümün sırrı — ofisten akşam yemeğine her yere uyar.' },
+  { id: 'protez', ad: 'Protez Tırnak', foto: 'gorseller/protez.webp', aciklama: 'İdeal boy ve formda, doğal görünümlü ve dayanıklı tırnaklar. Kırık ve kısa tırnaklara profesyonel çözüm.' }
 ];
 
 const HIZMETLER = [
@@ -40,7 +40,7 @@ STILLER.forEach((stil) => {
   kart.type = 'button';
   kart.className = 'stil-kart' + (stil.id === durum.stil ? ' secili' : '');
   kart.dataset.stil = stil.id;
-  kart.innerHTML = `<span class="tirnak ${stil.id}"></span><span class="stil-kart-ad">${stil.ad}</span>`;
+  kart.innerHTML = `<img class="stil-foto" src="${stil.foto}" alt="${stil.ad} nail art" loading="lazy"><span class="stil-kart-ad">${stil.ad}</span>`;
   kart.addEventListener('click', () => {
     durum.stil = stil.id;
     document.querySelectorAll('.stil-kart').forEach((k) => k.classList.toggle('secili', k.dataset.stil === stil.id));
@@ -55,8 +55,9 @@ function stilDetayGuncelle() {
   document.getElementById('detayAd').textContent = stil.ad;
   document.getElementById('detayAciklama').textContent = stil.aciklama;
   document.getElementById('detayEtiket').hidden = !stil.onerilen;
-  const gorsel = document.getElementById('detayTirnak');
-  gorsel.className = 'tirnak dev ' + stil.id;
+  const foto = document.getElementById('detayFoto');
+  foto.src = stil.foto;
+  foto.alt = stil.ad + ' nail art';
 }
 
 // ---------- Hizmet listesi ----------
@@ -176,14 +177,6 @@ const GALERI = [
 ];
 
 const galeriIzgara = document.getElementById('galeriIzgara');
-const ZEMINLER = {
-  french: 'linear-gradient(150deg, #f6e8e0, #ecd2c4)',
-  cateye: 'linear-gradient(150deg, #f0dcd5, #ddb4ab)',
-  ombre:  'linear-gradient(150deg, #faeef0, #f0ccd4)',
-  inci:   'linear-gradient(150deg, #f8f1ea, #e8e0e6)',
-  gold:   'linear-gradient(150deg, #f5e6d4, #e6cba8)',
-  nude:   'linear-gradient(150deg, #f5e3d8, #e5c6b4)'
-};
 
 GALERI.forEach((g) => {
   const kart = document.createElement('a');
@@ -191,13 +184,8 @@ GALERI.forEach((g) => {
   kart.href = 'https://www.instagram.com/kalissabeautywellness/';
   kart.target = '_blank';
   kart.rel = 'noopener';
-  kart.style.background = ZEMINLER[g.stil];
   kart.innerHTML = `
-    <span class="galeri-tirnaklar">
-      <span class="tirnak mini ${g.stil}"></span>
-      <span class="tirnak ${g.stil}"></span>
-      <span class="tirnak mini ${g.stil}"></span>
-    </span>
+    <img class="galeri-foto" src="gorseller/${g.stil}.webp" alt="${g.ad} nail art çalışması" loading="lazy">
     <span class="galeri-etiket"><span>${g.ad}</span><small>Instagram ↗</small></span>`;
   galeriIzgara.appendChild(kart);
 });

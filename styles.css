@@ -156,30 +156,28 @@ h1 em {
 .guven li { font-size: 13.5px; font-weight: 600; color: var(--kahve); }
 .guven-ikon { color: var(--altin); margin-right: 6px; }
 
-/* Hero palet kartı */
+/* Hero fotoğraf kartı */
 .hero-gorsel { display: flex; justify-content: center; }
 
-.palet-kart {
+.hero-foto-kart {
   background: var(--fildisi);
   border: 1px solid var(--cizgi);
   border-radius: 28px;
-  padding: 44px 40px 28px;
+  padding: 14px 14px 18px;
   box-shadow: var(--golge);
   text-align: center;
+  max-width: 420px;
+  width: 100%;
 }
-
-.palet-yelpaze {
-  display: flex;
-  align-items: flex-end;
-  gap: 14px;
-  margin-bottom: 26px;
+.hero-foto-kart img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 18px;
+  margin-bottom: 14px;
 }
-.palet-yelpaze .tirnak:nth-child(1) { transform: rotate(-14deg) translateY(16px); }
-.palet-yelpaze .tirnak:nth-child(2) { transform: rotate(-7deg) translateY(5px); }
-.palet-yelpaze .tirnak:nth-child(4) { transform: rotate(7deg) translateY(5px); }
-.palet-yelpaze .tirnak:nth-child(5) { transform: rotate(14deg) translateY(16px); }
-
-.palet-not {
+.hero-foto-kart figcaption {
   font-size: 12.5px;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -187,46 +185,33 @@ h1 em {
   font-weight: 600;
 }
 
-/* ---------- Tırnak görselleri (CSS) ---------- */
-.tirnak {
-  display: inline-block;
-  width: 46px;
-  height: 68px;
-  border-radius: 50px 50px 14px 14px / 64px 64px 12px 12px;
-  position: relative;
-  box-shadow: inset 0 -6px 12px rgba(0,0,0,0.07), 0 6px 14px rgba(87,28,40,0.14);
-  flex: none;
+/* ---------- Fotoğraflar ---------- */
+.stil-foto {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 10px;
 }
-.tirnak::after {
-  content: '';
-  position: absolute;
-  top: 9%;
-  left: 16%;
-  width: 26%;
-  height: 46%;
-  border-radius: 50%;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.75), rgba(255,255,255,0));
-  transform: rotate(8deg);
-}
-.tirnak.buyuk { width: 58px; height: 92px; }
-.tirnak.dev { width: 96px; height: 150px; border-radius: 90px 90px 22px 22px / 120px 120px 18px 18px; }
-.tirnak.mini { width: 34px; height: 50px; }
 
-.tirnak.french { background: linear-gradient(to bottom, #ffffff 0%, #ffffff 24%, #efd3c6 30%, #e9c6b6 100%); }
-.tirnak.cateye { background: linear-gradient(115deg, #45101d 0%, #7c2136 38%, #c25a72 50%, #7c2136 62%, #3a0d18 100%); }
-.tirnak.ombre { background: linear-gradient(to bottom, #fdf4f2 0%, #f3cdd3 55%, #e5a9b8 100%); }
-.tirnak.inci { background: linear-gradient(130deg, #fdf7f1 0%, #f2e2ea 35%, #e6eef0 60%, #f7ecdf 100%); }
-.tirnak.gold {
-  background:
-    radial-gradient(circle at 30% 26%, #d0a45c 0 9%, transparent 10%),
-    radial-gradient(circle at 62% 48%, #c99b52 0 7%, transparent 8%),
-    radial-gradient(circle at 40% 70%, #d8b06a 0 6%, transparent 7%),
-    linear-gradient(to bottom, #f0d9c9, #e7c5b0);
+.stil-detay-gorsel img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 18px;
 }
-.tirnak.nude { background: linear-gradient(to bottom, #f4dfd2 0%, #e9cabb 100%); }
-.tirnak.protez { background: linear-gradient(to bottom, #f8efe9 0%, #eeddd3 100%); height: 78px; }
-.tirnak.buyuk.protez { height: 104px; }
-.tirnak.dev.protez { height: 168px; }
+
+.galeri-foto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .3s ease;
+}
+.galeri-kart:hover .galeri-foto { transform: scale(1.04); }
 
 /* ---------- Bölümler ---------- */
 .bolum { padding: clamp(52px, 7vw, 90px) clamp(20px, 5vw, 64px); max-width: 1240px; margin: 0 auto; }
@@ -280,7 +265,6 @@ h1 em {
   line-height: 22px;
   font-weight: 700;
 }
-.stil-kart .tirnak { margin-bottom: 10px; }
 .stil-kart-ad { display: block; font-weight: 700; font-size: 14px; color: var(--espresso); }
 
 /* Stil detay paneli */
@@ -297,12 +281,8 @@ h1 em {
 }
 
 .stil-detay-gorsel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: radial-gradient(circle at 50% 40%, rgba(201,138,157,0.16), transparent 70%);
   border-radius: 20px;
-  padding: 26px;
+  overflow: hidden;
 }
 
 .etiket {
@@ -477,14 +457,6 @@ h1 em {
 }
 .galeri-kart:hover { transform: translateY(-4px); }
 
-.galeri-kart .galeri-tirnaklar {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
 .galeri-kart .galeri-etiket {
   position: relative;
   width: 100%;
