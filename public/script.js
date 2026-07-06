@@ -1,6 +1,6 @@
 // ===== Kalissa Nail Art — etkileşim ve WhatsApp entegrasyonu =====
 
-const WA_NUMARA = '905331661532';
+const WA_NUMARA = '905415432598';
 
 const STILLER = [
   { id: 'french', ad: 'French',        foto: 'gorseller/french.webp', baslangicFiyat: 1200, aciklama: 'Zamansız zarafet: her kıyafete, her ortama uyan klasik beyaz uçlar. "Bakımlı ama abartısız" diyenlerin vazgeçilmezi.' },
@@ -42,7 +42,7 @@ const KAMPANYA = {
   fiyatNakit: 1700,
   fiyatKart: 2040
 };
-const KAMPANYA_WA_URL = 'https://wa.me/905331661532?text=' + encodeURIComponent(
+const KAMPANYA_WA_URL = 'https://wa.me/905415432598?text=' + encodeURIComponent(
   'Merhaba Kalissa 👋\nNakit kampanyasındaki paket için randevu almak istiyorum: Manikür + Protez + Kalıcı Oje — 1.700 TL (nakit).\nRandevu için uygun saatlerinizi öğrenebilir miyim?'
 );
 
