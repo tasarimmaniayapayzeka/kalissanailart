@@ -29,7 +29,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, .logo-ad {
+h1, h2, h3 {
   font-family: 'Playfair Display', Georgia, serif;
   font-weight: 600;
   line-height: 1.15;
@@ -90,20 +90,16 @@ img { max-width: 100%; }
   border-bottom: 1px solid var(--cizgi);
 }
 
-.logo { text-decoration: none; color: var(--espresso); display: flex; flex-direction: column; line-height: 1.1; }
-.logo-ad { font-size: 26px; letter-spacing: 4px; }
-.logo-alt { font-size: 9px; letter-spacing: 3px; color: var(--kahve); text-transform: uppercase; }
+.logo { display: flex; align-items: center; }
 
-/* Orijinal logodaki dekoratif el yazısı "ss" */
-.logo-ss {
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.35em;
-  letter-spacing: 0;
-  line-height: 0;
-  margin: 0 1px;
-  position: relative;
-  top: 0.06em;
+/* Orijinal logo: beyaz PNG, açık zeminde CSS ile siyaha çevrilir */
+.logo-img {
+  display: block;
+  height: 48px;
+  width: auto;
+  filter: brightness(0);
 }
+.logo-img-footer { filter: none; height: 56px; }
 
 .ustmenu { display: flex; gap: 28px; }
 .ustmenu a {
@@ -591,7 +587,6 @@ h1 em {
   justify-content: space-between;
 }
 .altbilgi-marka { display: flex; flex-direction: column; text-align: left; }
-.altbilgi .logo-alt { color: rgba(253, 250, 246, 0.6); }
 .altbilgi-iletisim { display: flex; gap: 24px; font-size: 14.5px; }
 .altbilgi-iletisim a { color: var(--fildisi); text-decoration: none; font-weight: 700; }
 .altbilgi-ig { color: var(--gul); text-decoration: none; font-weight: 700; font-size: 14.5px; }
