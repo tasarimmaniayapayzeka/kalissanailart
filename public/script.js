@@ -369,7 +369,7 @@ const SOHBET_KONULARI = {
     cip: '📍 Adres',
     cevap: 'Fenerbahçe Mah. Fener Kalamış Cd. No:21\nÜnver Apt. Daire:1, Kadıköy / İstanbul',
     eylemler: [
-      { metin: 'Yol Tarifi Al →', tur: 'link', href: 'https://www.google.com/maps/search/?api=1&query=Fenerbah%C3%A7e%20Mah.%20Fener%20Kalam%C4%B1%C5%9F%20Cd.%20No%3A21%20Kad%C4%B1k%C3%B6y' },
+      { metin: 'Yol Tarifi Al →', tur: 'link', href: 'https://www.google.com/maps/dir/?api=1&destination=Kalissa%20Beauty%20%26%20Wellness%2C%20Fener%20Kalam%C4%B1%C5%9F%20Cd.%20No%3A21%2C%20Fenerbah%C3%A7e%2C%20Kad%C4%B1k%C3%B6y' },
       { metin: 'Hemen Arayın →', tur: 'link', href: 'tel:+905415432598' }
     ]
   },
